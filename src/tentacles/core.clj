@@ -134,7 +134,7 @@
                                     (lazy-cat resp (exec-request new-req)))
                                   (and (seq resp) (seq (first resp)))
                                   resp
-                                  nil)))]
+                                  :else nil)))]
        (exec-request req))))
 
 (defn raw-api-call
