@@ -47,7 +47,7 @@
 (defn safe-parse
   "Takes a response and checks for certain status codes. If 204, return nil.
    If 400, 401, 204, 422, 403, 404 or 500, return the original response with the body parsed
-   as json. Otherwise, parse and return the body if json, or return the body if raw."
+   as json. Otherwise, parse and return the body if json, or return the body if not json"
   [{:keys [headers status body] :as resp}]
   (cond
    (= 202 status)
@@ -59,7 +59,7 @@
    :else (let [links (parse-links (get headers "link" ""))
                content-type (get headers "content-type")
                metadata (extract-useful-meta headers)]
-           (if-not (.contains content-type "raw")
+           (if (.contains content-type "json")
              (let [parsed (parse-json body)]
                (if (map? parsed)
                  (with-meta parsed {:links links :api-meta metadata})
