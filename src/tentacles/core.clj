@@ -4,6 +4,9 @@
             [clojure.string :as str]
             [cemerick.url :as url]))
 
+(defn reactions-header [m]
+  (assoc m :accept "application/vnd.github.squirrel-girl-preview"))
+
 (def ^:dynamic url "https://api.github.com/")
 (def ^:dynamic defaults {})
 
@@ -126,10 +129,12 @@
                               (safe-parse (http/request req)))
            exec-request (fn exec-request [req]
                           (let [resp (exec-request-one req)]
-                            (if (and all-pages? (-> resp meta :links :next))
-                              (let [new-req (update-req req (-> resp meta :links :next))]
-                                (lazy-cat resp (exec-request new-req)))
-                              resp)))]
+                            (cond (and all-pages? (-> resp meta :links :next))
+                                  (let [new-req (update-req req (-> resp meta :links :next))]
+                                    (lazy-cat resp (exec-request new-req)))
+                                  (and (seq resp) (seq (first resp)))
+                                  resp
+                                  nil)))]
        (exec-request req))))
 
 (defn raw-api-call
