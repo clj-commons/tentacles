@@ -4,11 +4,11 @@
 
 Tentacles is a Clojure library for working with the Github v3 API. It supports the entire Github API.
 
-This library is the successor to my old [clj-github](https://github.com/Raynes/clj-github) library. clj-github will no longer be maintained.
+This library is the continuation of [Raynes/tentacles](https://github.com/Raynes/tentacles). Sadly Raynes passed away in 2016 so the irresponsible clojure organisation has taken over maintenance of this excellent library to keep it alive.
 
 ## Usage
 
-This is on clojars, of course. Just add `[tentacles "0.5.1"]` to your `:dependencies` in your project.clj file.
+This is on clojars, of course. Just add `[irresponsible/tentacles "0.6.0"]` to your `:dependencies` in your project.clj or build.boot
 
 ### CODE!
 
@@ -41,7 +41,7 @@ Default options can be specified via `with-defaults`.
 
 If an API function has no options and authentication would have no uses for that particular call, the options map is not a parameter at all. For API calls that can do different things based on whether or not you are authenticated but authentication is not **required**, then the options map will be an optional argument. For API calls that require authentication to function at all, the options map is a required argument. Any data that is required by an API call is a positional argument to the API functions. The options map only ever contains authentication info and/or optional input.
 
-Authentication is supported by Github user authentication `:auth <username:password>` as demonstrated above, or by oauth or oauth2.  For oauth use `:oauth-token <token>` instead of `:auth` in the options map.  Likewise, for oauth2, include `:client-id <client_id> :client-token <client_token>` in the options map.
+Authentication is supported by Github user authentication `:auth <username:password>` as demonstrated above, or by oauth or oauth2.  For oauth use `:oauth-token <token>` instead of `:auth` in the options map.  Likewise, for oauth2, include `:client-id <client_id> :access-token <access_token>` in the options map.
 
 You can access useful information returned by the API such as current
 rate limits, etags, etc. by checking the response with `core/api-meta`. You can then use this to perform conditional requests against the API. If the data has not changed, the keyword `:tentacles.core/not-modified` will be returned. This does not consume any API call quota. Please be aware that conditional requests won't work if :all-pages is set to true.
@@ -65,9 +65,32 @@ user> (repos/readme "Raynes" "tentacles" {:user-agent "MyPhoneApp"})
 
 The Github API is massive and great. I can't demonstrate every API call. Everything is generally just as easy as the above examples, and I'm working hard to document things as well as possible, so go explore!
 
-Here are some lovely [Marginalia docs](http://raynes.github.com/tentacles). I also wrote a demonstrational [blog post](http://blog.raynes.me/blog/2011/12/02/waving-our-tentacles/) about Tentacles that I intend to keep updated with future releases.
+Here are some lovely [Marginalia docs](http://irresponsible.github.com/tentacles). I also wrote a demonstrational [blog post](http://blog.raynes.me/blog/2011/12/02/waving-our-tentacles/) about Tentacles in 2011.
 
 If you run into something that isn't documented well or you don't understand, look for the API call on the Github API [docs](http://developer.github.com/v3/). If you feel like it, please submit a pull request with improved documentation. Let's make this the most impressive Github API library around!
+
+## Changelog
+
+0.6.0 - the first release by irresponsible.
+
+  * Reviewed every open bug and pull request
+  * Merged the majority of PRs, did the rest ourselves
+  * Bumped deps and updated docs
+  * Started keeping changelog
+  * Fixed reported documentation issues
+  * Moved to boot so we can ship it like any other irresponsible lib
+  
+Bugs fixed:
+
+* [Requests error out when the body is not json](https://github.com/Raynes/tentacles/issues/81)
+* [Update to new watch endpoint](https://github.com/Raynes/tentacles/pull/109)
+* [Conditional request and :all-pages true option didn't play nicely](https://github.com/Raynes/tentacles/pull/110)
+* [Collection responses have an extra empty map as the last element](https://github.com/Raynes/tentacles/issues/64)
+
+Features added:
+
+* [Notifications api](https://github.com/Raynes/tentacles/pull/93)
+* [Reactions api](https://github.com/Raynes/tentacles/issues/96) (GET only at present)
 
 ## Hacking
 
@@ -85,6 +108,6 @@ As more tests are written this information may grow.
 
 ## License
 
-Copyright (C) 2011 Anthony Grimes
+Copyright (C) 2011 Anthony Grimes and contributors
 
 Distributed under the Eclipse Public License, the same as Clojure.
