@@ -1,7 +1,7 @@
 (ns tentacles.pulls
   "Implement the Github Pull Requests API: http://developer.github.com/v3/pulls/"
   (:refer-clojure :exclude [merge])
-  (:use [tentacles.core :only [api-call no-content?]]))
+  (:use [tentacles.core :only [api-call no-content? reactions-header]]))
 
 (defn pulls
   "List pull requests on a repo.
@@ -104,3 +104,10 @@
   "Delete a comment on a pull request."
   [user repo id options]
   (no-content? (api-call :delete "repos/%s/%s/pulls/comments/%s" [user repo id] options)))
+
+;; ## Reactions API
+
+(defn comment-reactions
+  [user repo comment-id & [options]]
+  (api-call :get "repos/%s/%s/pulls/comments/%s/reactions" [user repo comment-id] (reactions-header options)))
+

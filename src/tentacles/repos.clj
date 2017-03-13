@@ -4,7 +4,7 @@
   (:require [clojure.data.codec.base64 :as b64])
   (:use [clj-http.client :only [post put]]
         [clojure.java.io :only [file]]
-        [tentacles.core :only [api-call no-content? raw-api-call]]
+        [tentacles.core :only [api-call no-content? raw-api-call reactions-header]]
         [cheshire.core :only [generate-string]]))
 
 ;; ## Primary Repos API
@@ -191,6 +191,7 @@
   [user repo id body options]
   (api-call :post "repos/%s/%s/comments/%s" [user repo id] (assoc options :body body)))
 
+
 (defn compare-commits
   [user repo base head & [options]]
   (api-call :get "repos/%s/%s/compare/%s...%s" [user repo base head] options))
@@ -198,6 +199,13 @@
 (defn delete-commit-comment
   [user repo id options]
   (no-content? (api-call :delete "repos/%s/%s/comments/%s" [user repo id] options)))
+
+;; Reactions API
+
+(defn commit-comment-reactions
+  "Lists reactions on a comment"
+  [user repo comment-id & [options]]
+  (api-call :get "repos/%s/%s/comments/%s/reactions" [user repo comment-id] (reactions-header options)))
 
 ;; ## Repo Downloads API
 

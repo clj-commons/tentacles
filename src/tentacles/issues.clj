@@ -1,6 +1,6 @@
 (ns tentacles.issues
   "Implements the Github Issues API: http://developer.github.com/v3/issues/"
-  (:use [tentacles.core :only [api-call no-content?]]
+  (:use [tentacles.core :only [api-call no-content? reactions-header]]
         [clojure.string :only [join]]))
 
 ;; Some API requests, namely GET ones, require that labels be passed as a
@@ -70,6 +70,7 @@
   "Fetch a specific issue."
   [user repo number & [options]]
   (api-call :get "repos/%s/%s/issues/%s" [user repo number] options))
+
 
 (defn create-issue
   "Create an issue.
@@ -249,3 +250,15 @@
   "Delete a milestone."
   [user repo id options]
   (no-content? (api-call :delete "repos/%s/%s/milestones/%s" [user repo id] options)))
+
+;; Reactions api
+
+(defn issue-reactions
+  "Fetches the reactions for a specific issue"
+  [user repo issue-id & [options]]
+  (api-call :get "repos/%s/%s/issues/%s/reactions" [user repo issue-id] (reactions-header options)))
+
+(defn comment-reactions
+  "Gets the reactions for a specific comment"
+  [user repo comment-id & [options]]
+  (api-call :get "repos/%s/%s/issues/comments/%s/reactions" [user repo comment-id] (reactions-header options)))
