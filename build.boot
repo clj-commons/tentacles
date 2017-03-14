@@ -7,7 +7,12 @@
                  [com.cemerick/url "0.1.1"]
                  [org.clojure/data.codec "0.1.0"]
                  [environ "1.1.0"]
-                 [adzerk/boot-test "1.2.0"]])
+                 [adzerk/boot-test "1.2.0"]]
+  :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"
+                                   :username (System/getenv "CLOJARS_USER")
+                                   :password (System/getenv "CLOJARS_PASS")
+  }])
+)
  
 (require '[adzerk.boot-test :as t])
 
@@ -16,7 +21,13 @@
        :version "0.6.0"
        :description "A library for working with the Github API."
        :url "https://github.com/irresponsible/tentacles"
-       :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
+       :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}}
+ push {:tag true
+       :ensure-branch "master"
+       :ensure-release true
+       :ensure-clean true
+       :gpg-sign true
+       :repo "clojars"})
 
 (deftask testing []
   (set-env! :source-paths   #(conj % "test")
