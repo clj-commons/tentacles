@@ -38,6 +38,9 @@
 (deftask make-jar []
   (comp (pom) (jar) (target)))
 
+(deftask install-jar []
+  (comp (pom) (jar) (install)))
+
 (deftask release []
   (comp (pom) (jar) (push)))
 
@@ -49,3 +52,13 @@
 (deftask travis-installdeps []
   (testing) identity)
 
+(deftask jitpak-deploy []
+  (task-options! pom {
+    :project (symbol (System/getenv "ARTIFACT"))
+  })
+  (comp
+    (pom)
+    (jar)
+    (target)      ; Must install to build dir
+    (install)     ; And to .m2 https://jitpack.io/docs/BUILDING/#build-customization
+  ))
