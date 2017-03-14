@@ -1,0 +1,18 @@
+v0.6.0 - 14 Mar 2014
+- the first release by irresponsible.
+- Add Notifications API: Raynes/tentacles#93
+- Add Reactions API: Raynes/tentacles#96
+- Fix Raynes/tentacles#81: Requests error out when body is not json
+- Merge Raynes/tentacles#109: Update to new watch endpoint
+- Merge Raynes/tentacles#110: Bugs with conditional requests and :all-pages true
+- Fix Raynes/tentacles#64: Collection responses wth extra empty maps as last element
+- Bumped deps and updated docs
+- Started keeping changelog
+- Fixed reported documentation issues
+- Packaging Moved to boot ( But jitpack support retained )
+
+v0.3.0 - 21 Dec 2014
+
+v0.1.3 - 09 Dec 2011
+
+v0.1.0 - 30 Nov 2011
