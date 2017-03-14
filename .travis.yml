@@ -1,0 +1,29 @@
+language: clojure
+sudo: false
+script: ./boot travis
+branches:
+  only:
+    - master
+    - releng
+before_cache:
+  - rm -rf $HOME/.boot/cache/tmp/
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.boot
+    - $HOME/boot
+matrix:
+  include:
+    - jdk: oraclejdk8
+      env: BOOT_SH_VERSION=2.5.2 BOOT_VERSION=2.6.0
+    - jdk: openjdk7
+      env: BOOT_SH_VERSION=2.5.2 BOOT_VERSION=2.6.0
+# travis does not support any of these (yet):
+#  - oraclejdk9
+#  - openjdk8
+#  - openjdk9
+install:
+  - eval '[[ -f boot ]] || curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/${BOOT_SH_VERSION}/boot.sh'
+  - chmod 755 boot
+  - export BOOT_JVM_OPTIONS="-Xmx2g -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -XX:+CMSClassUnloadingEnabled"
+  - ./boot travis-installdeps

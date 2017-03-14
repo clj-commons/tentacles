@@ -32,5 +32,21 @@
   (testing)
   (comp (watch) (t/test)))
 
+(deftask installdeps []
+  identity)
 
+;; RMG Only stuff
+(deftask make-jar []
+  (comp (pom) (jar) (target)))
+
+(deftask release []
+  (comp (pom) (jar) (push)))
+
+;; Travis Only stuff
+(deftask travis []
+  (testing)
+  (t/test))
+
+(deftask travis-installdeps []
+  (testing) identity)
 
