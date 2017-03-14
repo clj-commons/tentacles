@@ -1,4 +1,4 @@
-[![Dependencies Status](https://jarkeeper.com/Raynes/tentacles/status.svg)](https://jarkeeper.com/Raynes/tentacles)
+[![Dependencies Status](https://jarkeeper.com/irresponsible/tentacles/status.svg)](https://jarkeeper.com/irresponsible/tentacles)
 
 # An octocat is nothing without her tentacles
 
