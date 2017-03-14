@@ -16,8 +16,7 @@
        :version "0.6.0"
        :description "A library for working with the Github API."
        :url "https://github.com/irresponsible/tentacles"
-       :license {:name "Eclipse Public License"
-                 :url "http://www.eclipse.org/legal/epl-v10.html"}})
+       :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
 
 (deftask testing []
   (set-env! :source-paths   #(conj % "test")
