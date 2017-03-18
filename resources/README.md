@@ -8,7 +8,7 @@ This library is the continuation of [Raynes/tentacles](https://github.com/Raynes
 
 ## Usage
 
-This is on clojars, of course. Just add `[irresponsible/tentacles "0.6.0"]` to your `:dependencies` in your project.clj or build.boot
+This is on clojars, of course. Just add `[irresponsible/tentacles "0.6.1"]` to your `:dependencies` in your project.clj or build.boot
 
 ### CODE!
 
@@ -70,6 +70,9 @@ Here are some lovely [Marginalia docs](http://irresponsible.github.com/tentacles
 If you run into something that isn't documented well or you don't understand, look for the API call on the Github API [docs](http://developer.github.com/v3/). If you feel like it, please submit a pull request with improved documentation. Let's make this the most impressive Github API library around!
 
 ## Changelog
+
+0.6.1 
+  * Removed necessary runtime requirement on adzerk/boot-test [issue#4](https://github.com/irresponsible/tentacles/issues/4)[pull #5](https://github.com/irresponsible/tentacles/pull/5)
 
 0.6.0 - the first release by irresponsible.
 

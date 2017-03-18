@@ -1,3 +1,6 @@
+v0.6.1 - 18 Mar 2014
+- Remove unneeded runtime dependency on adzerk/boot-test
+
 v0.6.0 - 14 Mar 2014
 - the first release by irresponsible.
 - Add Notifications API: Raynes/tentacles#93
