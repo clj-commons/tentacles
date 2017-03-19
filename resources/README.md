@@ -1,4 +1,4 @@
-[![Dependencies Status](https://jarkeeper.com/irresponsible/tentacles/status.svg)](https://jarkeeper.com/irresponsible/tentacles)
+[![Clojars Project](https://img.shields.io/clojars/v/irresponsible/tentacles.svg)](https://clojars.org/irresponsible/tentacles) [![Dependencies Status](https://jarkeeper.com/irresponsible/tentacles/status.svg)](https://jarkeeper.com/irresponsible/tentacles)
 
 # An octocat is nothing without her tentacles
 
@@ -8,9 +8,7 @@ This library is the continuation of [Raynes/tentacles](https://github.com/Raynes
 
 ## Usage
 
-This is on clojars, of course. Just add `[irresponsible/tentacles "0.6.1"]` to your `:dependencies` in your project.clj or build.boot
-
-### CODE!
+Simply add us to your project.clj or build.boot as normal (see clojars badge for current version)
 
 The library is very simple. It is a very light wrapper around the Github API. For the most part, it replaces keywords with properly formatted keywords, generates JSON for you, etc. Let's try out a few things.
 
