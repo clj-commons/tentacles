@@ -1,4 +1,4 @@
-language: clojure
+language: generic
 sudo: false
 script: ./boot travis
 branches:
@@ -11,19 +11,20 @@ cache:
   directories:
     - $HOME/.m2
     - $HOME/.boot
-    - $HOME/boot
 matrix:
   include:
-    - jdk: oraclejdk8
-      env: BOOT_SH_VERSION=2.5.2 BOOT_VERSION=2.6.0
-    - jdk: openjdk7
-      env: BOOT_SH_VERSION=2.5.2 BOOT_VERSION=2.6.0
-# travis does not support any of these (yet):
-#  - oraclejdk9
-#  - openjdk8
-#  - openjdk9
+    - env: JDK=zulu7
+    - env: JDK=zulu8
+    - env: JDK=zulu9
+  allow_failures:
+    - env: JDK=zulu9
+
+before_install:
+  - curl -fsSLo init.sh http://irresponsible.github.io/tools.travis.jdk-installer/init.sh
+  - source init.sh
+  - install_jdk "${JDK}"
+  - install_boot
+  - setup_boot_env
+  - java -version
 install:
-  - eval '[[ -f boot ]] || curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/${BOOT_SH_VERSION}/boot.sh'
-  - chmod 755 boot
-  - export BOOT_JVM_OPTIONS="-Xmx2g -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -XX:+CMSClassUnloadingEnabled"
   - ./boot travis-installdeps
