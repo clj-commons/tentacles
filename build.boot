@@ -1,7 +1,7 @@
 (set-env!
  :source-paths   #{"src"}
  :resource-paths #{"src" "resources"}
- :dependencies '[[org.clojure/clojure "1.8.0" :scope "provided"]
+ :dependencies '[[org.clojure/clojure "1.9.0-alpha15" :scope "provided"]
                  [clj-http "3.4.1"]
                  [cheshire "5.7.0"]
                  [com.cemerick/url "0.1.1"]
