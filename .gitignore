@@ -10,3 +10,6 @@ docs/
 .nrepl-port
 .idea/*
 *.iml
+/target
+.nrepl-*
+*~
