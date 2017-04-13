@@ -1,11 +1,10 @@
-jdk: oraclejdk8
-env:
-  BOOT_SH_VERSION: 2.5.2
-  BOOT_VERSION: 2.6.0
-  BOOT_JVM_OPTIONS: "-Xmx2g -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -XX:+CMSClassUnloadingEnabled"
 before_install:
-  - curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/${BOOT_SH_VERSION}/boot.sh
-  - chmod 755 boot
+  - curl -fsSLo init.sh http://irresponsible.github.io/tools.travis.jdk-installer/init.sh
+  - source init.sh
+  - install_jdk "zulu8"
+  - install_boot
+  - setup_boot_env
+  - java -version
   - ./boot travis-installdeps
 install:
   - ./boot jitpak-deploy
