@@ -63,7 +63,7 @@ user> (repos/readme "Raynes" "tentacles" {:user-agent "MyPhoneApp"})
 
 The Github API is massive and great. I can't demonstrate every API call. Everything is generally just as easy as the above examples, and I'm working hard to document things as well as possible, so go explore!
 
-Here are some lovely [Marginalia docs](http://irresponsible.github.com/tentacles). I also wrote a demonstrational [blog post](http://blog.raynes.me/blog/2011/12/02/waving-our-tentacles/) about Tentacles in 2011.
+Here are some lovely [Marginalia docs](http://irresponsible.github.io/tentacles/). I also wrote a demonstrational [blog post](http://blog.raynes.me/blog/2011/12/02/waving-our-tentacles/) about Tentacles in 2011.
 
 If you run into something that isn't documented well or you don't understand, look for the API call on the Github API [docs](http://developer.github.com/v3/). If you feel like it, please submit a pull request with improved documentation. Let's make this the most impressive Github API library around!
 
