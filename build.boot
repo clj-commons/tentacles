@@ -1,11 +1,11 @@
 (set-env!
  :source-paths   #{"src"}
  :resource-paths #{"src" "resources"}
- :dependencies '[[org.clojure/clojure "1.9.0-alpha15" :scope "provided"]
-                 [clj-http "3.4.1"]
-                 [cheshire "5.7.0"]
+ :dependencies '[[org.clojure/clojure "1.9.0-RC2" :scope "provided"]
+                 [clj-http "3.7.0"]
+                 [cheshire "5.8.0"]
                  [com.cemerick/url "0.1.1"]
-                 [org.clojure/data.codec "0.1.0"]
+                 [org.clojure/data.codec "0.1.1"]
                  [environ "1.1.0"]
                  [adzerk/boot-test "1.2.0" :scope "test"]]
   :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"
@@ -13,7 +13,7 @@
                                    :password (System/getenv "CLOJARS_PASS")
   }])
 )
- 
+
 (require '[adzerk.boot-test :as t])
 
 (task-options!
