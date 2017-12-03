@@ -68,8 +68,12 @@ Here are some lovely [Marginalia docs](http://irresponsible.github.io/tentacles/
 If you run into something that isn't documented well or you don't understand, look for the API call on the Github API [docs](http://developer.github.com/v3/). If you feel like it, please submit a pull request with improved documentation. Let's make this the most impressive Github API library around!
 
 ## Changelog
+0.6.2
 
-0.6.1 
+  * Upgrade project dependencies to latest version
+
+0.6.1
+
   * Removed necessary runtime requirement on adzerk/boot-test [issue#4](https://github.com/irresponsible/tentacles/issues/4)[pull #5](https://github.com/irresponsible/tentacles/pull/5)
 
 0.6.0 - the first release by irresponsible.
