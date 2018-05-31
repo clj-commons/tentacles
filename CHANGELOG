@@ -1,4 +1,6 @@
 v0.6.2
+- Update project dependencies to recent version (#8)
+- Bump to clojure 1.9 & clj-http 3.9.0  (#10)
 
 v0.6.1 - 18 Mar 2017
 - Remove unneeded runtime dependency on adzerk/boot-test
