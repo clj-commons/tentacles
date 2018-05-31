@@ -70,7 +70,7 @@ If you run into something that isn't documented well or you don't understand, lo
 ## Changelog
 0.6.2
 
-  * Upgrade project dependencies to latest version
+  * Upgrade project dependencies to latest version (#8 and #9)
 
 0.6.1
 
