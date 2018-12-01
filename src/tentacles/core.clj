@@ -89,7 +89,7 @@
 (defn make-request [method end-point positional query]
   (let [{:keys [auth throw-exceptions follow-redirects accept
                 oauth-token etag if-modified-since user-agent
-                otp]
+                otp bearer-token]
          :or {follow-redirects true throw-exceptions false}
          :as query} (merge defaults query)
         req (merge-with merge
@@ -102,6 +102,8 @@
                           {:headers {"Accept" accept}})
                         (when oauth-token
                           {:headers {"Authorization" (str "token " oauth-token)}})
+                        (when bearer-token
+                          {:headers {"Authorization" (str "Bearer " bearer-token)}})
                         (when user-agent
                           {:headers {"User-Agent" user-agent}})
                         (when otp
