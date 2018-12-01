@@ -21,6 +21,11 @@
         (is (contains? (:headers request) "User-Agent"))
         (is (= (get (:headers request) "User-Agent") "Mozilla"))))))
 
+(deftest request-with-bearer-token
+  (core/with-defaults {:bearer-token "test-token"}
+    (let [request (core/make-request :get "test" nil {})]
+        (is (= (get (:headers request) "Authorization") "Bearer test-token")))))
+
 (deftest adhoc-options-override-defaults
   (core/with-defaults {:user-agent "default"}
     (let [request (core/make-request :get "test" nil {:user-agent "adhoc"})]
