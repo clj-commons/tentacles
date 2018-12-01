@@ -35,6 +35,19 @@ user> (repos/repos {:auth "Raynes:REDACTED" :per-page 1})
 [{:fork true, :pushed_at "2011-09-21T05:37:17Z", :name "lein-marginalia", :clone_url "https://github.com/Raynes/lein-marginalia.git", :watchers 1, :updated_at "2011-11-23T03:27:47Z", :html_url "https://github.com/Raynes/lein-marginalia", :owner {:login "Raynes", :avatar_url "https://secure.gravatar.com/avatar/54222b6321f0504e0a312c24e97adfc1?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png", :url "https://api.github.com/users/Raynes", :gravatar_id "54222b6321f0504e0a312c24e97adfc1", :id 54435}, :language "Clojure", :size 180, :created_at "2011-11-23T03:27:47Z", :private false, :homepage "", :git_url "git://github.com/Raynes/lein-marginalia.git", :url "https://api.github.com/repos/Raynes/lein-marginalia", :master_branch nil, :ssh_url "git@github.com:Raynes/lein-marginalia.git", :open_issues 0, :id 2832999, :forks 0, :svn_url "https://svn.github.com/Raynes/lein-marginalia", :description "A Marginalia plugin to Leiningen "}]
 ```
 
+Authentication for GitHub Apps can be made by using [clj-jwt](https://github.com/liquidz/clj-jwt) and the `:bearer-token` option when making the request.
+
+```
+user> (def claim {appIDAsInt :exp (plus (now) (minutes 10)) :iat (now)})
+user> (def gh-app-key (private-key "./private.key"))
+user> (def token (-> claim jwt (sign :RS256 gh-app-key) to-str))
+user> (with-defaults {:accept "application/vnd.github.machine-man-preview+json"
+                      :bearer-token token}
+                      (api-call :get "/app")))
+```
+
+For more information, see https://developer.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app
+
 Default options can be specified via `with-defaults`.
 
 If an API function has no options and authentication would have no uses for that particular call, the options map is not a parameter at all. For API calls that can do different things based on whether or not you are authenticated but authentication is not **required**, then the options map will be an optional argument. For API calls that require authentication to function at all, the options map is a required argument. Any data that is required by an API call is a positional argument to the API functions. The options map only ever contains authentication info and/or optional input.
