@@ -2,8 +2,8 @@
  :source-paths   #{"src"}
  :resource-paths #{"src" "resources"}
  :dependencies '[[org.clojure/clojure "1.9.0" :scope "provided"]
-                 [clj-http "3.9.0"]
-                 [cheshire "5.8.0"]
+                 [clj-http "3.9.1"]
+                 [cheshire "5.8.1"]
                  [com.cemerick/url "0.1.1"]
                  [org.clojure/data.codec "0.1.1"]
                  [environ "1.1.0"]
