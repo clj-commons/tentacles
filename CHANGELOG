@@ -1,6 +1,10 @@
+v0.6.3 - 3 Dec 2018
+- Add :bearer-token option in make-request (#12)
+- Bump clj-http to 3.9.1 & cheshire to 5.8.1
+
 v0.6.2 - 31 May 2017
 - Update project dependencies to recent version (#8)
-- Bump to clojure 1.9 & clj-http 3.9.0  (#10)
+- Bump to clojure 1.9 & clj-http 3.9.0 (#10)
 
 v0.6.1 - 18 Mar 2017
 - Remove unneeded runtime dependency on adzerk/boot-test
