@@ -1,7 +1,7 @@
 (set-env!
  :source-paths   #{"src"}
  :resource-paths #{"src" "resources"}
- :dependencies '[[org.clojure/clojure "1.9.0" :scope "provided"]
+ :dependencies '[[org.clojure/clojure "1.10.1" :scope "provided"]
                  [clj-http "3.9.1"]
                  [cheshire "5.8.1"]
                  [com.cemerick/url "0.1.1"]
@@ -17,10 +17,10 @@
 (require '[adzerk.boot-test :as t])
 
 (task-options!
- pom '{:project irresponsible/tentacles
-       :version "0.6.4-SNAPSHOT"
+ pom '{:project clj-commons/tentacles
+       :version "0.6.5-SNAPSHOT"
        :description "A library for working with the Github API."
-       :url "https://github.com/irresponsible/tentacles"
+       :url "https://github.com/clj-commons/tentacles"
        :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}}
  push {:tag true
        :ensure-branch "master"
