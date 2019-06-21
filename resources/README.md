@@ -81,34 +81,8 @@ Here are some lovely [Marginalia docs](http://irresponsible.github.io/tentacles/
 If you run into something that isn't documented well or you don't understand, look for the API call on the Github API [docs](http://developer.github.com/v3/). If you feel like it, please submit a pull request with improved documentation. Let's make this the most impressive Github API library around!
 
 ## Changelog
-0.6.2
 
-  * Upgrade project dependencies to latest version ([pull #8](https://github.com/irresponsible/tentacles/pull/8) and [pull #10](https://github.com/irresponsible/tentacles/pull/10))
-
-0.6.1
-
-  * Removed necessary runtime requirement on adzerk/boot-test [issue#4](https://github.com/irresponsible/tentacles/issues/4) / [pull #5](https://github.com/irresponsible/tentacles/pull/5)
-
-0.6.0 - the first release by irresponsible.
-
-  * Reviewed every open bug and pull request
-  * Merged the majority of PRs, did the rest ourselves
-  * Bumped deps and updated docs
-  * Started keeping changelog
-  * Fixed reported documentation issues
-  * Moved to boot so we can ship it like any other irresponsible lib
-
-Bugs fixed:
-
-* [Requests error out when the body is not json](https://github.com/Raynes/tentacles/issues/81)
-* [Update to new watch endpoint](https://github.com/Raynes/tentacles/pull/109)
-* [Conditional request and :all-pages true option didn't play nicely](https://github.com/Raynes/tentacles/pull/110)
-* [Collection responses have an extra empty map as the last element](https://github.com/Raynes/tentacles/issues/64)
-
-Features added:
-
-* [Notifications api](https://github.com/Raynes/tentacles/pull/93)
-* [Reactions api](https://github.com/Raynes/tentacles/issues/96) (GET only at present)
+You can consult the changelog here: [CHANGELOG](https://github.com/clj-commons/tentacles/blob/master/CHANGELOG).
 
 ## Hacking
 
