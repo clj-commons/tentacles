@@ -131,12 +131,21 @@
                               (safe-parse (http/request req)))
            exec-request (fn exec-request [req]
                           (let [resp (exec-request-one req)]
-                            (cond (and all-pages? (-> resp meta :links :next))
-                                  (let [new-req (update-req req (-> resp meta :links :next))]
-                                    (lazy-cat resp (exec-request new-req)))
-                                  (and (seq resp) (seq (first resp)))
-                                  resp
-                                  :else nil)))]
+                            (cond
+                              (keyword? resp)
+                              resp
+
+                              (and all-pages?
+                                   (-> resp meta :links :next))
+                              (let [new-req (update-req req (-> resp meta :links :next))]
+                                (lazy-cat resp (exec-request new-req)))
+
+                              (and (seq resp)
+                                   (seq (first resp)))
+                              resp
+
+                              :else
+                              nil)))]
        (exec-request req))))
 
 (defn raw-api-call
