@@ -92,29 +92,41 @@
                 otp bearer-token]
          :or {follow-redirects true throw-exceptions false}
          :as query} (merge defaults query)
-        req (merge-with merge
-                        {:url (format-url end-point positional)
-                         :basic-auth auth
-                         :throw-exceptions throw-exceptions
-                         :follow-redirects follow-redirects
-                         :method method}
-                        (when accept
-                          {:headers {"Accept" accept}})
-                        (when oauth-token
-                          {:headers {"Authorization" (str "token " oauth-token)}})
-                        (when bearer-token
-                          {:headers {"Authorization" (str "Bearer " bearer-token)}})
-                        (when user-agent
-                          {:headers {"User-Agent" user-agent}})
-                        (when otp
-                          {:headers {"X-GitHub-OTP" otp}})
-                        (when-not (query :all-pages)
-                          (when etag
-                            {:headers {"if-None-Match" etag}})
-                          (when if-modified-since
-                            {:headers {"if-Modified-Since" if-modified-since}})))
+        headers (cond-> {}
+                  accept
+                  (assoc "Accept" accept)
+
+                  oauth-token
+                  (assoc "Authorization" (str "token " oauth-token))
+
+                  bearer-token
+                  (assoc "Authorization" (str "Bearer " bearer-token))
+
+                  user-agent
+                  (assoc "User-Agent" user-agent)
+
+                  otp
+                  (assoc "X-GitHub-OTP" otp)
+
+                  (and etag
+                       (not (query :all-pages)))
+                  (assoc "If-None-Match" etag)
+
+                  (and if-modified-since
+                       (not (query :all-pages)))
+                  (assoc "If-Modified-Since" if-modified-since))
+        req (cond-> {:url (format-url end-point positional)
+                     :basic-auth auth
+                     :throw-exceptions throw-exceptions
+                     :follow-redirects follow-redirects
+                     :method method}
+
+              (seq headers)
+              (assoc :headers headers))
         raw-query (:raw query)
-        proper-query (query-map (dissoc query :auth :oauth-token :all-pages :accept :user-agent :otp))
+        proper-query (query-map (dissoc query :auth :oauth-token :all-pages
+                                        :accept :user-agent :otp
+                                        :etag :if-modified-since))
         req (if (#{:post :put :delete :patch} method)
               (assoc req :body (json/generate-string (or raw-query proper-query)))
               (assoc req :query-params proper-query))]

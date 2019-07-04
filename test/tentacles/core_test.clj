@@ -13,6 +13,15 @@
       (is (contains? (:headers request) "User-Agent"))
       (is (= (get (:headers request) "User-Agent") "Mozilla")))))
 
+(deftest request-handle-multiple-headers
+  (let [request (core/make-request :get "test" nil {:user-agent "Mozilla"
+                                                    :etag "sample-etag"})]
+    (is (empty?    (:query-params request)))
+    (is (contains? (:headers request) "User-Agent"))
+    (is (contains? (:headers request) "If-None-Match"))
+    (is (= (get (:headers request) "User-Agent") "Mozilla"))
+    (is (= (get (:headers request) "If-None-Match") "sample-etag"))))
+
 (deftest request-contains-user-agent-from-defaults
   (core/with-defaults {:user-agent "Mozilla"}
     (let [request (core/make-request :get "test" nil {})]
@@ -24,7 +33,7 @@
 (deftest request-with-bearer-token
   (core/with-defaults {:bearer-token "test-token"}
     (let [request (core/make-request :get "test" nil {})]
-        (is (= (get (:headers request) "Authorization") "Bearer test-token")))))
+      (is (= (get (:headers request) "Authorization") "Bearer test-token")))))
 
 (deftest adhoc-options-override-defaults
   (core/with-defaults {:user-agent "default"}
