@@ -58,20 +58,20 @@ You can access useful information returned by the API such as current
 rate limits, etags, etc. by checking the response with `core/api-meta`. You can then use this to perform conditional requests against the API. If the data has not changed, the keyword `:tentacles.core/not-modified` will be returned. This does not consume any API call quota. Please be aware that conditional requests won't work if :all-pages is set to true.
 
 ```clojure
-user> (core/api-meta (repos/readme "Raynes" "tentacles" {}))
+user> (core/api-meta (repos/readme "clj-commons" "tentacles" {}))
 {:links {nil nil}, :etag "\"f1f3cfabbf0f98e0bbaa7aa424f92e75\"", :last-modified "Mon, 28 Jan 2013 21:13:48 GMT", :call-limit 60, :call-remaining 59}
 
-user> (repos/readme "Raynes" "tentacles" {:etag "\"f1f3cfabbf0f98e0bbaa7aa424f92e75\""})
+user> (repos/readme "clj-commons" "tentacles" {:etag "\"f1f3cfabbf0f98e0bbaa7aa424f92e75\""})
 :tentacles.core/not-modified
 
-user> (repos/readme "Raynes" "tentacles" {:if-modified-since "Mon, 28 Jan 2013 21:13:48 GMT"})
+user> (repos/readme "clj-commons" "tentacles" {:if-modified-since "Mon, 28 Jan 2013 21:13:48 GMT"})
 :tentacles.core/not-modified
 ```
 
 Similarly, you can set an User-Agent to make your requests more friendly and identifiable.
 
 ```clojure
-user> (repos/readme "Raynes" "tentacles" {:user-agent "MyPhoneApp"})
+user> (repos/readme "clj-commons" "tentacles" {:user-agent "MyPhoneApp"})
 ```
 
 The Github API is massive and great. I can't demonstrate every API call. Everything is generally just as easy as the above examples, and I'm working hard to document things as well as possible, so go explore!
