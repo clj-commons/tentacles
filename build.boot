@@ -18,7 +18,7 @@
 
 (task-options!
  pom '{:project irresponsible/tentacles
-       :version "0.6.4-SNAPSHOT"
+       :version "0.6.4"
        :description "A library for working with the Github API."
        :url "https://github.com/irresponsible/tentacles"
        :license {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}}
