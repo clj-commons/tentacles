@@ -114,9 +114,9 @@
 
 (defn create-comment
   "Create a comment."
-  [user repo id body options]
+  [user repo issue-number body options]
   (api-call :post "repos/%s/%s/issues/%s/comments"
-            [user repo id] (assoc options :body body)))
+            [user repo issue-number] (assoc options :body body)))
 
 (defn edit-comment
   "Edit a comment."
