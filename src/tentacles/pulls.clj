@@ -86,8 +86,8 @@
 ;; to actually work. Commenting tha
 (defn create-comment
   "Create a comment on a pull request."
-  [user repo id sha path position body options]
-  (api-call :post "repos/%s/%s/pulls/%s/comments" [user repo id]
+  [user repo pr-number sha path position body options]
+  (api-call :post "repos/%s/%s/pulls/%s/comments" [user repo pr-number]
             (assoc options
               :commit-id sha
               :path path
