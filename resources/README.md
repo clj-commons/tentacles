@@ -1,4 +1,6 @@
-[![Clojars Project](https://img.shields.io/clojars/v/irresponsible/tentacles.svg)](https://clojars.org/irresponsible/tentacles) [![Dependencies Status](https://jarkeeper.com/irresponsible/tentacles/status.svg)](https://jarkeeper.com/irresponsible/tentacles)
+[![Clojars Project](https://img.shields.io/clojars/v/irresponsible/tentacles.svg)](https://clojars.org/irresponsible/tentacles)
+[![CircleCI](https://circleci.com/gh/clj-commons/tentacles.svg?style=svg)](https://circleci.com/gh/clj-commons/tentacles)
+[![Dependencies Status](https://jarkeeper.com/irresponsible/tentacles/status.svg)](https://jarkeeper.com/irresponsible/tentacles)
 
 # An octocat is nothing without her tentacles
 
