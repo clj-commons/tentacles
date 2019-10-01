@@ -1,6 +1,6 @@
 (ns tentacles.search
   "Implements the Github Search API: http://developer.github.com/v3/search/"
-  (:require [tentacles.core :refer [api-call]]
+  (:require [tentacles.core :refer [api-call search-header]]
             [clojure.string :refer [join]]))
 
 (defn search-term
@@ -32,7 +32,8 @@
   (api-call :get
                  end-point
                  nil
-                 (assoc options :q (search-term keywords query))))
+                 (search-header
+                   (assoc options :q (search-term keywords query)))))
 
 (defn search-repos
   "Finds repositories via various criteria. This method returns up to 100
@@ -162,3 +163,19 @@
   https://api.github.com/search/users?q=tom+repos:%3E42+followers:%3E1000"
   [keywords & [query options]]
   (search "search/users" keywords query options))
+
+(defn search-topics
+  "Find topics via various criteria. Results are sorted by best match. This
+   method returns up to 100 results per page.
+
+   When searching for topics, you can get text match metadata for the topic's
+   short_description, description, name, or display_name field when you pass the
+   text-match media type. For more details about how to receive highlighted
+   search results, see Text match metadata.
+
+   Parameters are:
+     keywords - The search keywords. Can be string or sequence of strings.
+     query - The search qualifiers. Query is a map that contains qualifier
+       values where key is a qualifier name."
+  [keywords & [query options]]
+  (search "search/topics" keywords query options))
