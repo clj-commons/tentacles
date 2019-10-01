@@ -9,4 +9,5 @@
                  [com.cemerick/url "0.1.1"]
                  [org.clojure/data.codec "0.1.1"]
                  [environ "1.1.0"]]
-  :pedantic? :abort)
+  :pedantic? :abort
+  :deploy-repositories {"releases" {:url "https://repo.clojars.org" :creds :gpg}})

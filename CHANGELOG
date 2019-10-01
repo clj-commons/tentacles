@@ -1,3 +1,8 @@
+v0.6.5 - 1 Oct 2019
+- Improve API parameter names (#21 & #22)
+- Add search-topics with search-header (#23)
+- Bump to Clojure 1.10.1 & cheshire 5.9.0
+
 v0.6.4 - 5 Jul 2019
 - Fix keyword response handling & headers passing (#19)
 
