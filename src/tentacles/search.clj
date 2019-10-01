@@ -30,10 +30,10 @@
   "Performs Github api call with given params."
   [end-point keywords query options]
   (api-call :get
-                 end-point
-                 nil
-                 (search-header
-                   (assoc options :q (search-term keywords query)))))
+            end-point
+            nil
+            (search-header
+             (assoc options :q (search-term keywords query)))))
 
 (defn search-repos
   "Finds repositories via various criteria. This method returns up to 100

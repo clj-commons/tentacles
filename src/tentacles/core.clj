@@ -56,22 +56,22 @@
    as json. Otherwise, parse and return the body if json, or return the body if not json"
   [{:keys [headers status body] :as resp}]
   (cond
-   (= 202 status)
-   ::accepted
-   (= 304 status)
-   ::not-modified
-   (#{400 401 204 422 403 404 500} status)
-   (update-in resp [:body] parse-json)
-   :else (let [links (parse-links (get headers "link" ""))
-               content-type (get headers "content-type")
-               metadata (extract-useful-meta headers)]
-           (if (.contains content-type "json")
-             (let [parsed (parse-json body)]
-               (if (map? parsed)
-                 (with-meta parsed {:links links :api-meta metadata})
-                 (with-meta (map #(with-meta % metadata) parsed)
-                   {:links links :api-meta metadata})))
-             body))))
+    (= 202 status)
+    ::accepted
+    (= 304 status)
+    ::not-modified
+    (#{400 401 204 422 403 404 500} status)
+    (update-in resp [:body] parse-json)
+    :else (let [links (parse-links (get headers "link" ""))
+                content-type (get headers "content-type")
+                metadata (extract-useful-meta headers)]
+            (if (.contains content-type "json")
+              (let [parsed (parse-json body)]
+                (if (map? parsed)
+                  (with-meta parsed {:links links :api-meta metadata})
+                  (with-meta (map #(with-meta % metadata) parsed)
+                    {:links links :api-meta metadata})))
+              body))))
 
 (defn update-req
   "Given a clj-http request, and a 'next' url string, merge the next url into the request"
@@ -139,53 +139,53 @@
   ([method end-point] (api-call method end-point nil nil))
   ([method end-point positional] (api-call method end-point positional nil))
   ([method end-point positional query]
-     (let [query (or query {})
-           all-pages? (query :all-pages)
-           req (make-request method end-point positional query)
-           exec-request-one (fn exec-request-one [req]
-                              (safe-parse (http/request req)))
-           exec-request (fn exec-request [req]
-                          (let [resp (exec-request-one req)]
-                            (cond
-                              (keyword? resp)
-                              resp
+   (let [query (or query {})
+         all-pages? (query :all-pages)
+         req (make-request method end-point positional query)
+         exec-request-one (fn exec-request-one [req]
+                            (safe-parse (http/request req)))
+         exec-request (fn exec-request [req]
+                        (let [resp (exec-request-one req)]
+                          (cond
+                            (keyword? resp)
+                            resp
 
-                              (and all-pages?
-                                   (-> resp meta :links :next))
-                              (let [new-req (update-req req (-> resp meta :links :next))]
-                                (lazy-cat resp (exec-request new-req)))
+                            (and all-pages?
+                                 (-> resp meta :links :next))
+                            (let [new-req (update-req req (-> resp meta :links :next))]
+                              (lazy-cat resp (exec-request new-req)))
 
-                              (and (seq resp)
-                                   (seq (first resp)))
-                              resp
+                            (and (seq resp)
+                                 (seq (first resp)))
+                            resp
 
-                              :else
-                              nil)))]
-       (exec-request req))))
+                            :else
+                            nil)))]
+     (exec-request req))))
 
 (defn raw-api-call
   ([method end-point] (raw-api-call method end-point nil nil))
   ([method end-point positional] (raw-api-call method end-point positional nil))
   ([method end-point positional query]
-     (let [query (or query {})
-           all-pages? (query :all-pages)
-           req (make-request method end-point positional query)]
-       (http/request req))))
+   (let [query (or query {})
+         all-pages? (query :all-pages)
+         req (make-request method end-point positional query)]
+     (http/request req))))
 
 (defn environ-auth
   "Lookup :gh-username and :gh-password in environ (~/.lein/profiles.clj or .lein-env) and return a string auth.
    Usage: (users/me {:auth (environ-auth)})"
   [env]
-  (str (:gh-username env ) ":" (:gh-password env)))
+  (str (:gh-username env) ":" (:gh-password env)))
 
 (defn rate-limit
   ([] (api-call :get "rate_limit"))
   ([opts] (api-call :get "rate_limit" nil opts)))
 
 (defmacro with-url [new-url & body]
- `(binding [url ~new-url]
-    ~@body))
+  `(binding [url ~new-url]
+     ~@body))
 
 (defmacro with-defaults [options & body]
- `(binding [defaults ~options]
-    ~@body))
+  `(binding [defaults ~options]
+     ~@body))

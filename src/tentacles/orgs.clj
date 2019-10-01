@@ -100,7 +100,7 @@
   [org name options]
   (api-call :post "orgs/%s/teams" [org]
             (assoc options
-              :name name)))
+                   :name name)))
 
 (defn edit-team
   "Edit a team.

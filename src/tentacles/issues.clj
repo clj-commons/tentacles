@@ -71,7 +71,6 @@
   [user repo number & [options]]
   (api-call :get "repos/%s/%s/issues/%s" [user repo number] options))
 
-
 (defn create-issue
   "Create an issue.
    Options are:

@@ -176,10 +176,10 @@
   [user repo sha path position body options]
   (api-call :post "repos/%s/%s/commits/%s/comments" [user repo sha]
             (assoc options
-              :body body
-              :commit-id sha
-              :path path
-              :position position)))
+                   :body body
+                   :commit-id sha
+                   :path path
+                   :position position)))
 
 (defn specific-commit-comment
   "Get a specific commit comment."
@@ -190,7 +190,6 @@
   "Update a commit comment."
   [user repo id body options]
   (api-call :post "repos/%s/%s/comments/%s" [user repo id] (assoc options :body body)))
-
 
 (defn compare-commits
   [user repo base head & [options]]
@@ -234,9 +233,9 @@
     (assoc (api-call :post "repos/%s/%s/downloads"
                      [user repo]
                      (assoc options
-                       :name (.getName path)
-                       :size (.length path)))
-      :filepath path)))
+                            :name (.getName path)
+                            :size (.length path)))
+           :filepath path)))
 
 ;; This isn't really even a Github API call, since it calls an Amazon API.
 ;; As such, it doesn't provide the same guarentees as the rest of the API.
@@ -367,7 +366,7 @@
   [user repo name config options]
   (api-call :post "repos/%s/%s/hooks" [user repo name config]
             (assoc options
-              :name name, :config config)))
+                   :name name, :config config)))
 
 (defn edit-hook
   "Edit an existing hook.
@@ -403,34 +402,34 @@
   (no-content?
    (post "https://api.github.com/hub"
          (merge
-           (when-let [oauth-token (:oauth-token options)]
-             {:headers {"Authorization" (str "token " oauth-token)}})
-           {:basic-auth (:auth options)
-            :form-params
-            (merge
-             {"hub.mode" mode
-              "hub.topic" (format "https://github.com/%s/%s/events/%s"
-                                  user repo event)
-              "hub.callback" callback}
-             (when-let [secret (:secret options)]
-               {"hub.secret" secret}))}))))
+          (when-let [oauth-token (:oauth-token options)]
+            {:headers {"Authorization" (str "token " oauth-token)}})
+          {:basic-auth (:auth options)
+           :form-params
+           (merge
+            {"hub.mode" mode
+             "hub.topic" (format "https://github.com/%s/%s/events/%s"
+                                 user repo event)
+             "hub.callback" callback}
+            (when-let [secret (:secret options)]
+              {"hub.secret" secret}))}))))
 
 ;; ## Repo Contents API
 
 (defn- decode-b64
   "Decodes a base64 encoded string in a response"
   ([res str? path]
-     (if (and (map? res) (= (:encoding res) "base64"))
-       (if-let [^String encoded (get-in res path)]
-         (if (not (empty? encoded))
-           (let [trimmed (.replace encoded "\n" "")
-                 raw (.getBytes trimmed "UTF-8")
-                 decoded (if (seq raw) (b64/decode raw) (byte-array))
-                 done (if str? (String. decoded "UTF-8") decoded)]
-             (assoc-in res path done))
-           res)
+   (if (and (map? res) (= (:encoding res) "base64"))
+     (if-let [^String encoded (get-in res path)]
+       (if (not (empty? encoded))
+         (let [trimmed (.replace encoded "\n" "")
+               raw (.getBytes trimmed "UTF-8")
+               decoded (if (seq raw) (b64/decode raw) (byte-array))
+               done (if str? (String. decoded "UTF-8") decoded)]
+           (assoc-in res path done))
          res)
-       res))
+       res)
+     res))
   ([res str?] (decode-b64 res str? [:content]))
   ([res] (decode-b64 res false [:content])))
 
@@ -494,13 +493,13 @@
    Options are:
       ref -- The name of the Commit/Branch/Tag. Defaults to master."
   ([user repo archive-format {git-ref :ref :or {git-ref ""} :as options}]
-     (let [proper-options (-> options
-                              (assoc :follow-redirects false)
-                              (dissoc :ref))
-           resp (raw-api-call :get "repos/%s/%s/%s/%s" [user repo archive-format git-ref] proper-options)]
-       (if (= (resp :status) 302)
-         (get-in resp [:headers "location"])
-         resp))))
+   (let [proper-options (-> options
+                            (assoc :follow-redirects false)
+                            (dissoc :ref))
+         resp (raw-api-call :get "repos/%s/%s/%s/%s" [user repo archive-format git-ref] proper-options)]
+     (if (= (resp :status) 302)
+       (get-in resp [:headers "location"])
+       resp))))
 
 ;; ## Status API
 (def combined-state-opt-in "application/vnd.github.she-hulk-preview+json")
@@ -518,7 +517,7 @@
                 "repos/%s/%s/statuses/%s")
               [user repo ref]
               (cond-> options
-                      combined? (assoc :accept combined-state-opt-in)))))
+                combined? (assoc :accept combined-state-opt-in)))))
 
 (defn create-status
   "Creates a status.
@@ -526,7 +525,7 @@
   [user repo sha options]
   (api-call :post "repos/%s/%s/statuses/%s" [user repo sha]
             (assoc options
-              :accept combined-state-opt-in)))
+                   :accept combined-state-opt-in)))
 
 ;; ## Deployments API
 (def deployments-opt-in "application/vnd.github.cannonball-preview+json")
@@ -536,7 +535,7 @@
   [user repo & [options]]
   (api-call :get "repos/%s/%s/deployments" [user repo]
             (assoc options
-              :accept deployments-opt-in)))
+                   :accept deployments-opt-in)))
 
 (defn create-deployment
   "Creates a deployment for a ref.
@@ -544,15 +543,15 @@
   [user repo ref options]
   (api-call :post "repos/%s/%s/deployments" [user repo]
             (assoc options
-              :ref ref
-              :accept deployments-opt-in)))
+                   :ref ref
+                   :accept deployments-opt-in)))
 
 (defn deployment-statuses
   "Returns deployment statuses for a deployment"
   [user repo deployment options]
   (api-call :get "repos/%s/%s/deployments/%s/statuses" [user repo deployment]
             (assoc options
-              :accept deployments-opt-in)))
+                   :accept deployments-opt-in)))
 
 (defn create-deployment-status
   "Create a deployment status.
@@ -560,7 +559,7 @@
   [user repo deployment options]
   (api-call :post "repos/%s/%s/deployments/%s/statuses" [user repo deployment]
             (assoc options
-              :accept deployments-opt-in)))
+                   :accept deployments-opt-in)))
 
 ;; # Releases api
 

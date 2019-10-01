@@ -41,7 +41,7 @@
 ;; In our case, I think I'd rather have a sensible gist creation function.
 (defn- file-map [options files]
   (assoc options
-    :files (into {} (for [[k v] files] [k {:content v}]))))
+         :files (into {} (for [[k v] files] [k {:content v}]))))
 
 (defn file-contents
   "Extract a file->content map from a gist"
@@ -57,7 +57,7 @@
   [files & [options]]
   (api-call :post "gists" nil
             (assoc (file-map options files)
-              :public (:public options true))))
+                   :public (:public options true))))
 
 ;; It makes sense to require the user to pass :files the way Github expects it
 ;; here: as a map of filenames to maps of :contents and/or :filename. It makes

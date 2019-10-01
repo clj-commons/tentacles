@@ -14,8 +14,8 @@
   [user repo content encoding options]
   (api-call :post "repos/%s/%s/git/blobs" [user repo]
             (assoc options
-              :content content
-              :encoding encoding)))
+                   :content content
+                   :encoding encoding)))
 
 ;; ## Commits
 
@@ -44,8 +44,8 @@
   [user repo message tree options]
   (api-call :post "repos/%s/%s/git/commits" [user repo]
             (assoc options
-              :message message
-              :tree tree)))
+                   :message message
+                   :tree tree)))
 
 ;; ## References
 
@@ -64,8 +64,8 @@
   [user repo ref sha options]
   (api-call :post "repos/%s/%s/git/refs" [user repo]
             (assoc options
-              :ref ref
-              :sha sha)))
+                   :ref ref
+                   :sha sha)))
 
 (defn edit-reference
   "Edit a reference.
@@ -78,6 +78,7 @@
 
 
 ;; ## Tags
+
 
 (defn tag
   "Get a tag."
@@ -106,10 +107,10 @@
   [user repo tag message object type options]
   (api-call :post "repos/%s/%s/git/tags" [user repo]
             (assoc options
-              :tag tag
-              :message message
-              :object object
-              :type type)))
+                   :tag tag
+                   :message message
+                   :object object
+                   :type type)))
 
 ;; ## Trees
 

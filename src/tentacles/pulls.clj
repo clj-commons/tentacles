@@ -26,13 +26,13 @@
       body -- The body of the pull request text. Only applies when not
               creating a pull request from an issue."
   ([user repo from base head options]
-     (api-call :post "repos/%s/%s/pulls" [user repo]
-               (let [base-opts (assoc options
-                                 :base base
-                                 :head head)]
-                 (if (number? from)
-                   (assoc base-opts :issue from)
-                   (assoc base-opts :title from))))))
+   (api-call :post "repos/%s/%s/pulls" [user repo]
+             (let [base-opts (assoc options
+                                    :base base
+                                    :head head)]
+               (if (number? from)
+                 (assoc base-opts :issue from)
+                 (assoc base-opts :title from))))))
 
 (defn edit-pull
   "Edit a pull request.
@@ -89,10 +89,10 @@
   [user repo pr-number sha path position body options]
   (api-call :post "repos/%s/%s/pulls/%s/comments" [user repo pr-number]
             (assoc options
-              :commit-id sha
-              :path path
-              :position position
-              :body body)))
+                   :commit-id sha
+                   :path path
+                   :position position
+                   :body body)))
 
 (defn edit-comment
   "Edit a comment on a pull request."
