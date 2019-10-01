@@ -7,6 +7,9 @@
 (defn reactions-header [m]
   (assoc m :accept "application/vnd.github.squirrel-girl-preview"))
 
+(defn search-header [m]
+  (assoc m :accept "application/vnd.github.mercy-preview+json"))
+
 (def ^:dynamic url "https://api.github.com/")
 (def ^:dynamic defaults {})
 
