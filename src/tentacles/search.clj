@@ -1,6 +1,6 @@
 (ns tentacles.search
   "Implements the Github Search API: http://developer.github.com/v3/search/"
-  (:require [tentacles.core :refer [api-call search-header]]
+  (:require [tentacles.core :refer [api-call mercy-header]]
             [clojure.string :refer [join]]))
 
 (defn search-term
@@ -32,7 +32,7 @@
   (api-call :get
             end-point
             nil
-            (search-header
+            (mercy-header
              (assoc options :q (search-term keywords query)))))
 
 (defn search-repos
