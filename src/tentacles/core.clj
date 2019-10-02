@@ -7,7 +7,10 @@
 (defn reactions-header [m]
   (assoc m :accept "application/vnd.github.squirrel-girl-preview"))
 
-(defn search-header [m]
+(defn mercy-header
+  "Required accept header for activating topics in the API, e.g.:
+   https://developer.github.com/v3/repos/#list-all-topics-for-a-repository"
+  [m]
   (assoc m :accept "application/vnd.github.mercy-preview+json"))
 
 (def ^:dynamic url "https://api.github.com/")
