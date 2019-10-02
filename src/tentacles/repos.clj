@@ -4,7 +4,8 @@
   (:require [clojure.data.codec.base64 :as b64])
   (:use [clj-http.client :only [post put]]
         [clojure.java.io :only [file]]
-        [tentacles.core :only [api-call no-content? raw-api-call reactions-header]]
+        [tentacles.core :only [api-call no-content? raw-api-call
+                               mercy-header reactions-header]]
         [cheshire.core :only [generate-string]]))
 
 ;; ## Primary Repos API
@@ -615,3 +616,33 @@
   "List commit count per hour in the day"
   [user repo & [options]]
   (api-call :get "repos/%s/%s/stats/punch_card" [user repo] options))
+
+
+;; ## Topics API
+
+(defn list-topics
+  "List all topics for a repository
+
+   Response:
+
+   {
+     'names': [
+       'octocat',
+       'atom',
+       'electron',
+       'api'
+     ]
+   }
+
+
+  https://developer.github.com/v3/repos/#list-all-topics-for-a-repository"
+  [owner repo & [options]]
+  (api-call :get "repos/%s/%s/topics" [owner repo] (mercy-header options)))
+
+(defn update-topics
+  "Replace all topics for a repository
+
+   https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
+   "
+  [owner repo options]
+  (api-call :put "repos/%s/%s/topics" [owner repo] (mercy-header options)))
