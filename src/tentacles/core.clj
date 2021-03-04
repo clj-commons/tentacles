@@ -95,7 +95,7 @@
 (defn make-request [method end-point positional query]
   (let [{:keys [auth throw-exceptions follow-redirects accept
                 oauth-token etag if-modified-since user-agent
-                otp bearer-token]
+                otp bearer-token conn-timeout socket-timeout]
          :or {follow-redirects true throw-exceptions false}
          :as query} (merge defaults query)
         headers (cond-> {}
@@ -128,11 +128,18 @@
                      :method method}
 
               (seq headers)
-              (assoc :headers headers))
+              (assoc :headers headers)
+
+              conn-timeout
+              (assoc :conn-timeout conn-timeout)
+
+              socket-timeout
+              (assoc :socket-timeout socket-timeout))
         raw-query (:raw query)
         proper-query (query-map (dissoc query :auth :oauth-token :all-pages
                                         :accept :user-agent :otp
-                                        :etag :if-modified-since))
+                                        :etag :if-modified-since
+                                        :throw-exceptions :conn-timeout :socket-timeout))
         req (if (#{:post :put :delete :patch} method)
               (assoc req :body (json/generate-string (or raw-query proper-query)))
               (assoc req :query-params proper-query))]
