@@ -2,11 +2,10 @@
   "Implements the Github Repos API: http://developer.github.com/v3/repos/"
   (:refer-clojure :exclude [keys])
   (:require [clojure.data.codec.base64 :as b64])
-  (:use [clj-http.client :only [post put]]
+  (:use [clj-http.client :only [post]]
         [clojure.java.io :only [file]]
         [tentacles.core :only [api-call no-content? raw-api-call
-                               mercy-header reactions-header]]
-        [cheshire.core :only [generate-string]]))
+                               mercy-header reactions-header]]))
 
 ;; ## Primary Repos API
 
@@ -422,10 +421,10 @@
   ([res str? path]
    (if (and (map? res) (= (:encoding res) "base64"))
      (if-let [^String encoded (get-in res path)]
-       (if (not (empty? encoded))
+       (if (seq encoded)
          (let [trimmed (.replace encoded "\n" "")
                raw (.getBytes trimmed "UTF-8")
-               decoded (if (seq raw) (b64/decode raw) (byte-array))
+               decoded (if (seq raw) (b64/decode raw) (byte-array 0))
                done (if str? (String. decoded "UTF-8") decoded)]
            (assoc-in res path done))
          res)
