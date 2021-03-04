@@ -1,4 +1,4 @@
-(defproject irresponsible/tentacles "0.6.7-SNAPSHOT"
+(defproject irresponsible/tentacles "0.6.7"
   :description "Clojure library for working with the Github v3 API"
   :url "https://github.com/clj-commons/tentacles"
   :license {:name "Eclipse Public License"
