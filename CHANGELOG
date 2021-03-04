@@ -1,5 +1,6 @@
 v0.6.7 - UNRELEASED
 - Add support for socket & connection timeout (#25)
+- Bump Clojure, clj-http, cheshire & environ versions
 
 v0.6.6 - 7 Oct 2019
 - Add repository topics APIs (#24)
