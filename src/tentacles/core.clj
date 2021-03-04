@@ -95,7 +95,7 @@
 (defn make-request [method end-point positional query]
   (let [{:keys [auth throw-exceptions follow-redirects accept
                 oauth-token etag if-modified-since user-agent
-                otp bearer-token conn-timeout socket-timeout]
+                otp bearer-token]
          :or {follow-redirects true throw-exceptions false}
          :as query} (merge defaults query)
         headers (cond-> {}
@@ -121,25 +121,24 @@
                   (and if-modified-since
                        (not (query :all-pages)))
                   (assoc "If-Modified-Since" if-modified-since))
-        req (cond-> {:url (format-url end-point positional)
-                     :basic-auth auth
-                     :throw-exceptions throw-exceptions
-                     :follow-redirects follow-redirects
-                     :method method}
+        req (cond->
+             (conj {:url (format-url end-point positional)
+                    :basic-auth auth
+                    :throw-exceptions throw-exceptions
+                    :follow-redirects follow-redirects}
+                   (select-keys query [:method
+                                       :socket-timeout
+                                       :conn-timeout ; conn-timeout is deprecated - see https://github.com/dakrone/clj-http/issues/477
+                                       :connection-timeout]))
 
               (seq headers)
-              (assoc :headers headers)
-
-              conn-timeout
-              (assoc :conn-timeout conn-timeout)
-
-              socket-timeout
-              (assoc :socket-timeout socket-timeout))
+              (assoc :headers headers))
         raw-query (:raw query)
         proper-query (query-map (dissoc query :auth :oauth-token :all-pages
                                         :accept :user-agent :otp
                                         :etag :if-modified-since
-                                        :throw-exceptions :conn-timeout :socket-timeout))
+                                        :throw-exceptions :socket-timeout
+                                        :conn-timeout :connection-timeout))
         req (if (#{:post :put :delete :patch} method)
               (assoc req :body (json/generate-string (or raw-query proper-query)))
               (assoc req :query-params proper-query))]

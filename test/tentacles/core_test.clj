@@ -60,13 +60,17 @@
 
 (deftest request-allows-conn-and-socket-timeouts
   (let [request (core/make-request :get "test" nil {})]
+    (is (nil? (:connection-timeout request)))
     (is (nil? (:conn-timeout request)))
     (is (nil? (:socket-timeout request))))
 
   (let [request (core/make-request :get "test" nil {:socket-timeout 5000
+                                                    :connection-timeout 3000
                                                     :conn-timeout 5000})]
     (def request request)
     (is (nil? (-> request :query-params (get "socket_timeout"))))
+    (is (nil? (-> request :query-params (get "connection_timeout"))))
     (is (nil? (-> request :query-params (get "conn_timeout"))))
     (is (= 5000 (:conn-timeout request)))
+    (is (= 3000 (:connection-timeout request)))
     (is (= 5000 (:socket-timeout request)))))
