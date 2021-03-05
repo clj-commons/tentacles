@@ -58,6 +58,10 @@
                                                :headers {"x-poll-interval" "61"
                                                          "content-type" "application/json"}}))))))
 
+(deftest http-method-is-set 
+  (let [request (core/make-request :get "test" nil {})]
+    (is (= :get (:method request)))))
+
 (deftest request-allows-conn-and-socket-timeouts
   (let [request (core/make-request :get "test" nil {})]
     (is (nil? (:connection-timeout request)))
@@ -67,7 +71,6 @@
   (let [request (core/make-request :get "test" nil {:socket-timeout 5000
                                                     :connection-timeout 3000
                                                     :conn-timeout 5000})]
-    (def request request)
     (is (nil? (-> request :query-params (get "socket_timeout"))))
     (is (nil? (-> request :query-params (get "connection_timeout"))))
     (is (nil? (-> request :query-params (get "conn_timeout"))))
