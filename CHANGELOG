@@ -1,4 +1,7 @@
-v0.6.7 - UNRELEASED
+v0.6.8 - 5 Mar 2021
+-  Fix http method missing bug (#26)
+
+v0.6.7 - 4 Mar 2021
 - Add support for socket & connection timeout (#25)
 - Bump Clojure, clj-http, cheshire & environ versions
 
