@@ -125,9 +125,9 @@
              (conj {:url (format-url end-point positional)
                     :basic-auth auth
                     :throw-exceptions throw-exceptions
-                    :follow-redirects follow-redirects}
-                   (select-keys query [:method
-                                       :socket-timeout
+                    :follow-redirects follow-redirects
+                    :method method}
+                   (select-keys query [:socket-timeout
                                        :conn-timeout ; conn-timeout is deprecated - see https://github.com/dakrone/clj-http/issues/477
                                        :connection-timeout]))
 
