@@ -134,7 +134,7 @@
               (seq headers)
               (assoc :headers headers))
         raw-query (:raw query)
-        proper-query (query-map (dissoc query :auth :oauth-token :all-pages
+        proper-query (query-map (dissoc query :auth :oauth-token :all-pages :bearer-token
                                         :accept :user-agent :otp
                                         :etag :if-modified-since
                                         :throw-exceptions :socket-timeout
